@@ -44,50 +44,70 @@ const AuthForm = ({ onAuthSuccess }) => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-dark-bg">
+        <div className="min-h-screen flex items-center justify-center bg-dark-bg p-4">
             <div className="app-card w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-4 text-center">
-                    {isLogin ? 'Sign In' : 'Sign Up'}
-                </h2>
-                {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="text-center mb-5">
+                    <img src="/logo.png" alt="StockMaster Logo" className="mx-auto mb-3 w-16 h-16" />
+                    <h1 className="text-3xl font-bold text-dark-text">StockMaster</h1>
+                    <p className="text-dark-text-secondary">
+                        {isLogin ? 'Sign in to your account' : 'Create a new account'}
+                    </p>
+                </div>
+                {error && <p className="text-red-500 text-center mb-5">{error}</p>}
+                <form onSubmit={handleSubmit} className="space-y-5">
                     {!isLogin && (
+                        <div>
+                            <label htmlFor="name" className="app-label">Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="app-input w-full"
+                            />
+                        </div>
+                    )}
+                    <div>
+                        <label htmlFor="email" className="app-label">Email</label>
                         <input
-                            type="text"
-                            name="name"
-                            placeholder="Name"
-                            value={formData.name}
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={formData.email}
                             onChange={handleChange}
                             className="app-input w-full"
                         />
-                    )}
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="app-input w-full"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="app-input w-full"
-                    />
-                    {!isLogin && (
-                        <select
-                            name="role"
-                            value={formData.role}
+                    </div>
+                    <div>
+                        <label htmlFor="password" className="app-label">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={formData.password}
                             onChange={handleChange}
-                            className="app-select w-full"
-                        >
-                            <option value="MANAGER">Manager</option>
-                            <option value="WAREHOUSE STAFF">Warehouse Staff</option>
-                            <option value="ADMIN">Admin</option>
-                        </select>
+                            className="app-input w-full"
+                        />
+                    </div>
+                    {!isLogin && (
+                        <div>
+                            <label htmlFor="role" className="app-label">Role</label>
+                            <select
+                                id="role"
+                                name="role"
+                                value={formData.role}
+                                onChange={handleChange}
+                                className="app-select w-full"
+                            >
+                                <option value="MANAGER">Manager</option>
+                                <option value="WAREHOUSE STAFF">Warehouse Staff</option>
+                                <option value="ADMIN">Admin</option>
+                            </select>
+                        </div>
                     )}
                     <button
                         type="submit"
@@ -97,12 +117,12 @@ const AuthForm = ({ onAuthSuccess }) => {
                         {isLoading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up'}
                     </button>
                 </form>
-                <p className="text-center mt-4">
+                <p className="text-center mt-5">
                     {isLogin ? 'Don’t have an account?' : 'Already have an account?'}{' '}
                     <button
                         type="button"
                         onClick={() => setIsLogin(!isLogin)}
-                        className="text-dark-accent hover:underline"
+                        className="btn-secondary"
                     >
                         {isLogin ? 'Sign Up' : 'Sign In'}
                     </button>
