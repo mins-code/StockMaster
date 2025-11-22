@@ -1,8 +1,9 @@
 // This is your Prisma schema file for the inventory management system.
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  // Remove or comment out the custom output path
+  // output   = "../generated/prisma"
 }
 
 datasource db {
