@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { PrismaClient } from '../generated/prisma/index.js';
+import { prisma } from './index.mjs';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const authRouter = Router();
-const prisma = new PrismaClient();
 
 // POST /register
 authRouter.post('/register', async (req, res) => {
