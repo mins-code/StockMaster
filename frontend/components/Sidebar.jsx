@@ -15,9 +15,9 @@ const Sidebar = ({ onLogout }) => {
   ];
 
   return (
-    <div className="w-64 bg-dark-surface h-screen border-r border-dark-border flex flex-col">
+    <div className="w-64 h-screen fixed top-0 left-0 bg-dark-surface border-r border-dark-border flex flex-col">
       {/* Branding */}
-      <div className="p-4 text-2xl font-bold text-dark-text border-b border-dark-border">
+      <div className="p-6 text-3xl font-bold text-white border-b border-dark-border">
         StockMaster
       </div>
 
@@ -28,9 +28,13 @@ const Sidebar = ({ onLogout }) => {
             <li key={link.path}>
               <NavLink
                 to={link.path}
-                className={`block text-dark-text-secondary hover:text-dark-accent ${
-                  location.pathname === link.path ? 'font-bold text-dark-accent' : ''
-                }`}
+                className={({ isActive }) =>
+                  `block px-4 py-2 rounded-md ${
+                    isActive
+                      ? 'bg-gradient-primary text-white shadow-glow'
+                      : 'text-dark-text-secondary hover:text-dark-accent'
+                  }`
+                }
               >
                 {link.name}
               </NavLink>
@@ -40,12 +44,14 @@ const Sidebar = ({ onLogout }) => {
       </nav>
 
       {/* Logout Button */}
-      <button
-        onClick={onLogout}
-        className="btn-danger mx-4 mb-4"
-      >
-        Logout
-      </button>
+      <div className="p-4 border-t border-dark-border">
+        <button
+          onClick={onLogout}
+          className="btn-danger w-full"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };

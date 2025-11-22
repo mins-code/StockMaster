@@ -44,17 +44,16 @@ const AuthForm = ({ onAuthSuccess }) => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-dark-bg p-4">
-            <div className="app-card w-full max-w-md">
-                <div className="text-center mb-5">
-                    <img src="/logo.png" alt="StockMaster Logo" className="mx-auto mb-3 w-16 h-16" />
-                    <h1 className="text-3xl font-bold text-dark-text">StockMaster</h1>
+        <div className="min-h-screen flex items-center justify-center bg-dark-bg p-6">
+            <div className="app-card w-full max-w-xl p-8">
+                <div className="text-center space-y-6">
+                    <h1 className="app-heading">StockMaster</h1>
                     <p className="text-dark-text-secondary">
                         {isLogin ? 'Sign in to your account' : 'Create a new account'}
                     </p>
                 </div>
-                {error && <p className="text-red-500 text-center mb-5">{error}</p>}
-                <form onSubmit={handleSubmit} className="space-y-5">
+                {error && <p className="text-red-500 text-center mb-6">{error}</p>}
+                <form onSubmit={handleSubmit} className="space-y-8">
                     {!isLogin && (
                         <div>
                             <label htmlFor="name" className="app-label">Name</label>
@@ -117,7 +116,7 @@ const AuthForm = ({ onAuthSuccess }) => {
                         {isLoading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up'}
                     </button>
                 </form>
-                <p className="text-center mt-5">
+                <p className="text-center mt-6">
                     {isLogin ? 'Don’t have an account?' : 'Already have an account?'}{' '}
                     <button
                         type="button"

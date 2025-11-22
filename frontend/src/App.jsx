@@ -12,60 +12,67 @@ import Adjustments from '../components/Adjustments';
 import LedgerView from '../components/LedgerView';
 
 const App = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
-        // Check localStorage for JWT token
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsLoggedIn(true);
-        }
-    }, []);
+  useEffect(() => {
+    // Check localStorage for JWT token
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
-    const handleLogout = () => {
-        // Remove token and reset state
-        localStorage.removeItem('token');
-        setIsLoggedIn(false);
-    };
+  const handleLogout = () => {
+    // Remove token and reset state
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  };
 
-    const handleAuthSuccess = (token) => {
-        // Set token and update state
-        localStorage.setItem('token', token);
-        setIsLoggedIn(true);
-    };
+  const handleAuthSuccess = (token) => {
+    // Set token and update state
+    localStorage.setItem('token', token);
+    setIsLoggedIn(true);
+  };
 
-    return (
-        <BrowserRouter>
-            {!isLoggedIn ? (
-                // Logged-out rendering
-                <Routes>
-                    <Route
-                        path="/auth"
-                        element={<AuthForm onAuthSuccess={handleAuthSuccess} />}
-                    />
-                    <Route path="*" element={<Navigate to="/auth" />} />
-                </Routes>
-            ) : (
-                // Logged-in rendering
-                <div className="flex">
-                    <Sidebar onLogout={handleLogout} />
-                    <div className="flex-grow">
-                        <Routes>
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/products" element={<ProductList />} />
-                            <Route path="/products/new" element={<CreateProduct />} />
-                            <Route path="/inventory/receipts" element={<Receipts />} />
-                            <Route path="/inventory/deliveries" element={<Deliveries />} />
-                            <Route path="/inventory/transfers" element={<Transfers />} />
-                            <Route path="/inventory/adjustments" element={<Adjustments />} />
-                            <Route path="/ledger" element={<LedgerView />} />
-                            <Route path="*" element={<Navigate to="/dashboard" />} />
-                        </Routes>
-                    </div>
-                </div>
-            )}
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      {!isLoggedIn ? (
+        // Logged-out rendering
+        <div className="min-h-screen flex items-center justify-center bg-dark-bg">
+          <Routes>
+            <Route
+              path="/auth"
+              element={<AuthForm onAuthSuccess={handleAuthSuccess} />}
+            />
+            <Route path="*" element={<Navigate to="/auth" />} />
+          </Routes>
+        </div>
+      ) : (
+        // Logged-in rendering
+        <div className="flex min-h-screen bg-dark-bg text-white">
+          {/* Sidebar */}
+          <Sidebar onLogout={handleLogout} />
+
+          {/* Main Content */}
+          <div className="flex-1 p-8 ml-64">
+            <div className="space-y-8">
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/products" element={<ProductList />} />
+                <Route path="/products/new" element={<CreateProduct />} />
+                <Route path="/inventory/receipts" element={<Receipts />} />
+                <Route path="/inventory/deliveries" element={<Deliveries />} />
+                <Route path="/inventory/transfers" element={<Transfers />} />
+                <Route path="/inventory/adjustments" element={<Adjustments />} />
+                <Route path="/ledger" element={<LedgerView />} />
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+              </Routes>
+            </div>
+          </div>
+        </div>
+      )}
+    </BrowserRouter>
+  );
 };
 
 export default App;
